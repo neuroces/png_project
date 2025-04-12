@@ -1,0 +1,22 @@
+# Local .terraform directories
+**/.terraform/
+
+# Terraform state files
+*.tfstate
+*.tfstate.backup
+
+# Crash logs
+crash.log
+
+# Override files, sensitive files
+terraform.tfvars
+*.tfvars
+
+# .terraform.lock.hcl is optional to ignore — you can track it if you want reproducible provider versions
+.terraform.lock.hcl
+
+# Plan files
+*.tfplan
+
+# Zip files used for Lambda packaging
+*.zip
