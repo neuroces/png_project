@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-ECR_URL=$1
+IMAGE_URI=$1
 REGION=$2
 # Ensure AWS CLI and Docker are installed
 if ! command -v aws &> /dev/null; then
@@ -25,7 +25,7 @@ cd ../docker
 
 # Build Docker image for x86_64 (amd64) and push
 echo "🛠 Building Docker image..."
-docker buildx build --platform linux/amd64 -t $ECR_URL:latest --push .
+docker buildx build --platform linux/amd64 -t $IMAGE_URI --push .
 
 
-echo "✅ Docker image pushed to $ECR_URL:latest"
+echo "✅ Docker image pushed to $IMAGE_URI"

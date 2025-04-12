@@ -12,3 +12,5 @@ resource "aws_ecr_repository" "png_analysis" {
 output "ecr_repository_url" {
   value = aws_ecr_repository.png_analysis.repository_url
 }
+
+
