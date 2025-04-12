@@ -1,6 +1,6 @@
 import argparse
 import os
-from datetime import datetime
+from datetime import UTC, datetime
 
 import boto3
 
@@ -11,7 +11,7 @@ def upload_file_with_timestamp(local_path: str, bucket_name: str, s3_prefix: str
     """
     s3 = boto3.client("s3")
     filename = os.path.basename(local_path)
-    timestamp = datetime.utcnow().strftime("%Y%m%dT%H%M%SZ")
+    timestamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%S")
     filename_parts = os.path.splitext(filename)
     new_filename = f"{filename_parts[0]}_{timestamp}{filename_parts[1]}"
     s3_key = f"{s3_prefix}/{new_filename}"
