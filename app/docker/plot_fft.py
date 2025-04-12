@@ -12,12 +12,13 @@ def read_image_from_s3(bucket: str, key: str):
     """
     Read an image from S3 and return a PIL Image object.
     """
-    s3 = boto3.client('s3')
+    s3 = boto3.client("s3")
     print(f"Reading image from s3://{bucket}/{key}")
     response = s3.get_object(Bucket=bucket, Key=key)
-    image = Image.open(BytesIO(response['Body'].read()))
+    image = Image.open(BytesIO(response["Body"].read()))
     # return image and s3 client
     return image, s3
+
 
 def generate_fft_plot(bucket: str, key: str):
     """
@@ -25,7 +26,7 @@ def generate_fft_plot(bucket: str, key: str):
     """
     # Load the image and convert to grayscale
     image, s3 = read_image_from_s3(bucket, key)
-    image = image.convert('L')  # grayscale
+    image = image.convert("L")  # grayscale
     image_array = np.array(image)
     h, w = image_array.shape
 
@@ -41,17 +42,17 @@ def generate_fft_plot(bucket: str, key: str):
     # Set up the plot
     plt.figure(figsize=(6, 6))
     extent = [freq_x[0], freq_x[-1], freq_y[0], freq_y[-1]]
-    plt.imshow(magnitude_spectrum, extent=extent, cmap='gray', origin='lower')
-    plt.title('2D FFT Magnitude Spectrum')
-    plt.xlabel('Normalized Frequency (X)')
-    plt.ylabel('Normalized Frequency (Y)')
-    plt.colorbar(label='Magnitude (dB)')
+    plt.imshow(magnitude_spectrum, extent=extent, cmap="gray", origin="lower")
+    plt.title("2D FFT Magnitude Spectrum")
+    plt.xlabel("Normalized Frequency (X)")
+    plt.ylabel("Normalized Frequency (Y)")
+    plt.colorbar(label="Magnitude (dB)")
     plt.grid(False)
     plt.tight_layout()
 
     # Save to in-memory buffer
     output_buffer = BytesIO()
-    plt.savefig(output_buffer, format='png', dpi=300)
+    plt.savefig(output_buffer, format="png", dpi=300)
     plt.close()
     output_buffer.seek(0)
 
@@ -60,9 +61,12 @@ def generate_fft_plot(bucket: str, key: str):
     output_key = f"outputs/{Path(input_filename).stem}-fft-plot.png"
 
     # Upload to S3
-    s3.put_object(Bucket=bucket, Key=output_key, Body=output_buffer, ContentType='image/png')
+    s3.put_object(
+        Bucket=bucket, Key=output_key, Body=output_buffer, ContentType="image/png"
+    )
 
     print(f"FFT plot saved to s3://{bucket}/{output_key}")
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate FFT plot from an image.")
