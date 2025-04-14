@@ -1,6 +1,12 @@
 #!/bin/bash
 set -e
 
+# Check if terraform is installed
+if ! command -v terraform &> /dev/null; then
+  echo "❌ Terraform could not be found. Please install Terraform and try again."
+  exit 1
+fi
+
 # # Deploy stage 1
 echo "🔧 Deploying Stage 1: ECR setup..."
 cd ../app/stage1/terraform
