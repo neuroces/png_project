@@ -19,7 +19,7 @@ cd ../../scripts
 # Build and push Docker image
 echo "🐳 Building and pushing Docker image..."
 chmod +x ./build_and_deploy.sh
-./build_and_deploy.sh "$IMAGE_URI" "us-east-1"
+./build_and_deploy.sh "$IMAGE_URI" "$ECR_URL" "us-east-1"
 
 echo "📦 Packaging Lambda function..."
 cd ../stage2/lambda

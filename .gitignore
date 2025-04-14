@@ -20,3 +20,6 @@ terraform.tfvars
 
 # Zip files used for Lambda packaging
 *.zip
+
+# venv files
+.venv/

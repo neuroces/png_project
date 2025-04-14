@@ -1,7 +1,8 @@
 #!/bin/bash
 set -e
 IMAGE_URI=$1
-REGION=$2
+ECR_URL=$2
+REGION=$3
 # Ensure AWS CLI and Docker are installed
 if ! command -v aws &> /dev/null; then
     echo "❌ AWS CLI is not installed. Please install it before running this script."
@@ -14,7 +15,7 @@ if ! command -v docker &> /dev/null; then
 fi
 
 # Login to AWS ECR
-echo "🔑 Logging into AWS ECR..."
+echo "🔑 Logging into AWS ECR..." 
 aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin "$ECR_URL"
 if [ $? -ne 0 ]; then
     echo "❌ ECR login failed!"

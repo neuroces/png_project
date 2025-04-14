@@ -154,8 +154,9 @@ resource "aws_s3_bucket_notification" "notify_lambda" {
 # ------------------------------
 
 # Create log group
+resource "random_uuid" "log_group_suffix" {}
 resource "aws_cloudwatch_log_group" "ecs_fft" {
-  name              = "/ecs/fft"
+  name              = "/ecs/fft-${random_uuid.log_group_suffix.result}"
   retention_in_days = 7
 }
 

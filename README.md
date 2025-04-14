@@ -143,6 +143,8 @@ It will be named in the format:
 
 You can download and view this file directly from the AWS S3 Console.
 
+*Note* It might take a minute for triggered task to run to completion.
+
 ---
 
 ## 🧹 Troubleshooting
